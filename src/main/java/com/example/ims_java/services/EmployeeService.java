@@ -1,26 +1,15 @@
 package com.example.ims_java.services;
 
 import com.example.ims_java.entities.Employee;
-import com.example.ims_java.repositories.EmployeeRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class EmployeeService {
-
-    private final EmployeeRepository employeeRepository;
-
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
-
-    public List<Employee> getAllUsers() {
-        return employeeRepository.findAll();
-    }
-
-    public Optional<Employee> getEmployeeByusername(String name) {
-        return employeeRepository.findByusername(name);
-    }
+public interface EmployeeService {
+    public List<Employee> getAllUsers();
+    public Optional<Employee> getEmployeeByUserName(String name);
+    public Optional<Employee> getEmployeeByEmployeeID(String name);
+    public Employee saveEmployee(Employee employee);
+    public Employee getEmployeeById(Long id);
+    public void deleteEmployee(Long id);
 }
