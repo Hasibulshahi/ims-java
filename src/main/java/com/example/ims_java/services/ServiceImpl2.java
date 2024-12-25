@@ -79,4 +79,14 @@ public class ServiceImpl2 implements EmployeeService {
     @Override
     public void deleteEmployee(Long id) {
     }
+
+    @Override
+    public Employee register(Employee user) {
+        return null;
+    }
+
+    @Override
+    public String verify(Employee user) {
+        return "";
+    }
 }
