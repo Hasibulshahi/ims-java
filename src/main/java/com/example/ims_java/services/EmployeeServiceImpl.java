@@ -35,12 +35,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
+    @Override
     public Employee register(Employee user) {
         user.setPassword(encoder.encode(user.getPassword()));
         repo.save(user);
         return user;
     }
 
+    @Override
     public String verify(Employee user) {
         Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
         if (authentication.isAuthenticated()) {
