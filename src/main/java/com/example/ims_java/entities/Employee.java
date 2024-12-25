@@ -50,4 +50,6 @@ public class Employee {
     private String UpdateBy;
     @Column(name = "UpdateDate", nullable = true)
     private Date UpdateDate;
+    @Column(name = "RestaurantID", nullable = true)
+    private String RestaurantID;
 }

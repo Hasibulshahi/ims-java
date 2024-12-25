@@ -1,6 +1,8 @@
 package com.example.ims_java.apiController;
 import com.example.ims_java.entities.Employee;
+import com.example.ims_java.entities.Menu;
 import com.example.ims_java.services.EmployeeService;
+import com.example.ims_java.services.MenuService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +16,14 @@ public class APIController {
 
     private final EmployeeService service1;
     private final EmployeeService service2;
+    private final MenuService menuService;
 
     public APIController(@Qualifier("employeeServiceImpl") EmployeeService service1,
-                         @Qualifier("serviceImpl2") EmployeeService service2) {
+                         @Qualifier("serviceImpl2") EmployeeService service2,
+                         @Qualifier("menuServiceImpl") MenuService menuService) {
         this.service1 = service1;
         this.service2 = service2;
+        this.menuService = menuService;
     }
 
     @GetMapping("/api/hello")
@@ -99,5 +104,10 @@ public class APIController {
         // Delete the employee
         service1.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/api/menus")
+    public List<Menu> getMenus() {
+        return menuService.getAllMenu();
     }
 }
