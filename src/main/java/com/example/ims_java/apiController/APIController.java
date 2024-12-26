@@ -106,8 +106,52 @@ public class APIController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // API for MENU
+
     @GetMapping("/api/menus")
     public List<Menu> getMenus() {
         return menuService.getAllMenu();
+    }
+
+    @GetMapping("/api/menu")
+    public ResponseEntity<?> getMenuByName(@RequestParam String menuName) {
+        Optional<Menu> menu = menuService.getMenuByMenuName(menuName);
+        if (menu.isPresent()) {
+            return ResponseEntity.ok(menu.get());
+        } else {
+            return ResponseEntity.status(404).body("Employee not found");
+        }
+    }
+
+    @GetMapping("/api/menu/{menuid}")
+    public ResponseEntity<?> getMenuByMenuID(@RequestParam String menuID) {
+        Optional<Menu> menu = menuService.getMenuByMenuID(menuID);
+        if (menu.isPresent()) {
+            return ResponseEntity.ok(menu.get());
+        } else {
+            return ResponseEntity.status(404).body("Employee not found");
+        }
+    }
+
+    @GetMapping("/api/menu/list")
+    public List<Menu> getMenuByList() {
+        return menuService.getAllMenu();
+    }
+
+    @PostMapping("/api/menu/add")
+    public ResponseEntity<Menu> addMenu(@RequestBody Menu menu) {
+        Menu savedMenu = menuService.addMenu(menu);
+        return new ResponseEntity<>(savedMenu, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/api/menu/delete/{id}")
+    public ResponseEntity<Void> deleteMenu(@PathVariable("id") Long id) {
+        Menu menu = menuService.getMenuById(id);
+        if (menu == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        // Delete the employee
+        menuService.deleteMenu(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
